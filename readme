@@ -1,0 +1,22 @@
+Create a file in SPARK_HOME/config/spark-env.sh
+
+#
+# Ignite configuration
+#
+IGNITE_LIBS="${IGNITE_HOME}/libs/*"
+for file in ${IGNITE_HOME}/libs/*
+do
+    if [ -d ${file} ] && [ "${file}" != "${IGNITE_HOME}"/libs/optional ]; then
+        IGNITE_LIBS=${IGNITE_LIBS}:${file}/*
+    fi
+done
+export SPARK_CLASSPATH=$IGNITE_LIBS
+echo $SPARK_CLASSPATH
+
+Run the following command to add ignite libs to the spark classpath
+
+pyspark --conf "spark.driver.extraClassPath=/home/rcforte/dev/tools/ignite/libs/*:/home/rcforte/dev/tools/ignite/libs/ignite-indexing/*:/home/rcforte/dev/tools/ignite/libs/ignite-log4j/*:/home/rcforte/dev/tools/ignite/libs/ignite-scalar/*:/home/rcforte/dev/tools/ignite/libs/ignite-spark-2.4/*:/home/rcforte/dev/tools/ignite/libs/ignite-spring/*:/home/rcforte/dev/tools/ignite/libs/licenses/*" --conf "spark.executor.extraClassPath=/home/rcforte/dev/tools/ignite/libs/*:/home/rcforte/dev/tools/ignite/libs/ignite-indexing/*:/home/rcforte/dev/tools/ignite/libs/ignite-log4j/*:/home/rcforte/dev/tools/ignite/libs/ignite-scalar/*:/home/rcforte/dev/tools/ignite/libs/ignite-spark-2.4/*:/home/rcforte/dev/tools/ignite/libs/ignite-spring/*:/home/rcforte/dev/tools/ignite/libs/licenses/*"
+
+start ignite with the config file
+
+ignite.sh examples/config/example-ignite.xml
