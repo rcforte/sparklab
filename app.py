@@ -1,6 +1,11 @@
 from pyspark.sql import SparkSession
 
 if __name__ == '__main__':
+    linuxconf = '/home/rcforte/dev/tools/ignite/examples/config/example-ignite.xml'
+    winconf = r'C:\Users\rcfor\Dev\Tools\ignite\examples\config\example-ignite.xml'
+
+    conf = winconf
+
     spark = SparkSession\
         .builder\
         .appName('app')\
@@ -10,7 +15,7 @@ if __name__ == '__main__':
         .read\
         .format('ignite')\
         .option('table', 'city')\
-        .option('config', '/home/rcforte/dev/tools/ignite/examples/config/example-ignite.xml')\
+        .option('config', conf)\
         .load()
     df.createOrReplaceTempView('city')
     df.show()
@@ -21,7 +26,7 @@ if __name__ == '__main__':
         .format('ignite')\
         .mode('append')\
         .option('table', 'city')\
-        .option('config', '/home/rcforte/dev/tools/ignite/examples/config/example-ignite.xml')\
+        .option('config', conf)\
         .save()
 
     df.show()
